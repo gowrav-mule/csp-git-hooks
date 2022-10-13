@@ -9,11 +9,25 @@ This is the common githook library for [csp-mulesoft-service](https://github.com
   - for Individual commit, skip run by adding `git commit -m "message" --no-verify`
 
 ## Installation
-- Either git clone [csp-mulesoft-service](https://github.com/mulesoft/csp-mulesoft-service) and at dir
-  level csp-mulesoft-service, run `git config core.hookspath .githooks`.
+- Option 1: git clone [csp-mulesoft-service](https://github.com/mulesoft/csp-mulesoft-service) and at csp-mulesoft-service dir
+  level, run `git config core.hookspath .githooks`.
   This will add the hooks at individual repo level
-- Or run the script here, this will add hooks to the global git level to `.gitconfig1`
-     - Download "gitHooks.sh"
-     - chmod +x gitHooks
-     - ./gitHooks
+- Option 2: Run the [gitHooks.sh](https://github.com/gowrav-mule/csp-git-hooks/blob/main/scripts/gitHooks.sh) script, this will add hooks to the global git level to `.gitconfig`
+     - Download [gitHooks.sh](https://github.com/gowrav-mule/csp-git-hooks/blob/main/scripts/gitHooks.sh)
+     - `chmod +x gitHooks`
+     - `./gitHooks`
+     - On execution
+       - Creates a new DIR under USR_DIR called `githooks`
+       - Downloads [csp-git-hooks](https://github.com/gowrav-mule/csp-git-hooks) to USR_DIR/gitHooks
+       - Appeds githooks to `.gitconfig`
+       - Visit `vi ~/.gitconfig`
+           - A new section called `[core] hooksPath` pointing to githooks is appended
+       
+## Uninstallation
+- Option 1: To skip githook execution, use `git commit -m "Your message" --no-verify`
+- Option 2: Remove/comment `[core] hooksPath` entry from `.gitconfig`
 
+Reference:
+## Uninstall
+- [Githooks](https://git-scm.com/docs/githooks)
+- [Git-Config](https://git-scm.com/docs/git-config)
