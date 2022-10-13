@@ -23,11 +23,10 @@ This is the common githook library for [csp-mulesoft-service](https://github.com
        - Visit `vi ~/.gitconfig`
            - A new section called `[core] hooksPath` pointing to githooks is appended
        
-## Uninstallation
+## Uninstall
 - Option 1: To skip githook execution, use `git commit -m "Your message" --no-verify`
 - Option 2: Remove/comment `[core] hooksPath` entry from `.gitconfig`
 
-Reference:
-## Uninstall
+## Reference:
 - [Githooks](https://git-scm.com/docs/githooks)
 - [Git-Config](https://git-scm.com/docs/git-config)
