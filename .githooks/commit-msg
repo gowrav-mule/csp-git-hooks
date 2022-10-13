@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Automatically adds Work item to commit message as a prefix
+
+# Some example of how branch naming convention and how this script will prefix comit message
+#
+# BranchName  		|  Commit Message Prfix
+# -------------------------------------
+#  W-123455   		| W-12345 Commit Message
+#  W-123455-fix		| W-12345 Commit Message
+#  fix-W-123455  	| W-12345 Commit Message
+#
+# Ideally the tool will grep anyword that has W or w with numbers
+# To skip this feature in a local one-off commit use
+# git commit -m "message" --no-verify
+#
+
+if [ -z "$BRANCHES_TO_SKIP" ]; then
+  BRANCHES_TO_SKIP=(master test integration)
+fi
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+BRANCH_NAME="${BRANCH_NAME##*/}"
+BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
+WORK_ITEM=$(git symbolic-ref --short HEAD | grep -o '[Ww]\+-[0-9]\+')
+
+if ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $(cat "$1") == "$WORK_ITEM"* ]] && ! [ -z "$WORK_ITEM" ]; then
+  echo "$WORK_ITEM $(cat "${1}")" > "$1"
+fi
